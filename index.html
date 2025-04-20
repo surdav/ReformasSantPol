@@ -256,13 +256,23 @@
                     advice = 'Aunque tu vivienda está en muy buen estado, siempre hay pequeñas mejoras que pueden aumentar su valor y confort. Considera actualizaciones puntuales en elementos específicos.';
                 }
 
-                resultTitle.textContent = result;
-                resultDescription.textContent = description;
-                resultAdvice.textContent = advice;
+                // Asegurarse de que los elementos existen antes de actualizarlos
+                if (resultTitle) resultTitle.textContent = result;
+                if (resultDescription) resultDescription.textContent = description;
+                if (resultAdvice) resultAdvice.textContent = advice;
 
-                showStep(totalSteps + 1);
-                progressBar.style.width = '100%';
-                progressPercentage.textContent = '100%';
+                // Mostrar el paso de resultados
+                const resultStep = document.querySelector('[data-step="7"]');
+                if (resultStep) {
+                    resultStep.classList.add('active');
+                }
+
+                // Actualizar la barra de progreso
+                if (progressBar) progressBar.style.width = '100%';
+                if (progressPercentage) progressPercentage.textContent = '100%';
+
+                // Ocultar el botón siguiente
+                if (nextBtn) nextBtn.style.display = 'none';
             }
 
             // Initialize test
