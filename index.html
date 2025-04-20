@@ -328,6 +328,9 @@
 
                 // Ocultar el botón siguiente
                 if (testNextBtn) testNextBtn.style.display = 'none';
+
+                // Forzar un reflow para asegurar que los cambios se aplican
+                resultStep.offsetHeight;
             }
 
             // Initialize test
