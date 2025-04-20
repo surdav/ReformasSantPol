@@ -210,6 +210,7 @@
             let currentStep = 0;
             let totalScore = 0;
             const totalSteps = steps.length - 1; // Excluding results step
+            const stepScores = Array(totalSteps).fill(0); // Array para guardar las puntuaciones por paso
 
             // Initialize test
             function initTest() {
@@ -249,8 +250,10 @@
                     options.forEach(opt => opt.classList.remove('selected'));
                     this.classList.add('selected');
 
-                    // Automatically move to next step
-                    totalScore += parseInt(this.dataset.value);
+                    // Actualizar puntuación del paso actual y total
+                    const value = parseInt(this.dataset.value);
+                    stepScores[currentStep] = value;
+                    totalScore = stepScores.reduce((a, b) => a + b, 0);
 
                     if (currentStep < totalSteps) {
                         currentStep++;
@@ -273,6 +276,17 @@
 
             // Show results
             function showResults() {
+                // 1. Ocultamos todos los pasos
+                steps.forEach(step => step.classList.remove('active'));
+
+                // 2. Mostramos el paso de resultados
+                const resultStep = document.querySelector('[data-step="7"]');
+                if (resultStep) {
+                    resultStep.classList.add('active');
+                    // Scroll suave al resultado
+                    resultStep.scrollIntoView({ behavior: 'smooth' });
+                }
+
                 let result = '';
                 let description = '';
                 let advice = '';
@@ -303,18 +317,12 @@
                     advice = 'Aunque tu vivienda está en muy buen estado, siempre hay pequeñas mejoras que pueden aumentar su valor y confort. Considera actualizaciones puntuales en elementos específicos.';
                 }
 
-                // Mostrar el paso de resultados
-                const resultStep = document.querySelector('[data-step="7"]');
-                if (resultStep) {
-                    resultStep.classList.add('active');
-                }
-
                 // Actualizar el contenido de los resultados
                 if (resultTitle) resultTitle.textContent = result;
                 if (resultDescription) resultDescription.textContent = description;
                 if (resultAdvice) resultAdvice.textContent = advice;
 
-                // Actualizar la barra de progreso
+                // Actualizar la barra de progreso al 100%
                 if (progressBar) progressBar.style.width = '100%';
                 if (progressPercentage) progressPercentage.textContent = '100%';
 
@@ -1065,7 +1073,7 @@
                 <h3 class="text-xl font-bold mb-4">Notas Legales</h3>
                 <p class="text-gray-300 text-sm">
                     Esta web es una plantilla HTML estática y no recopila ninguna información personal ni utiliza cookies. Todos los datos mostrados son de carácter informativo y no se conectan a ninguna base de datos o CMS.<br><br>
-                    <a href="https://hechamano.es/" rel="nofollow noopener noreferrer" target="_blank">Reformas Hecho a Mano</a>, S.L.U.<br>
+                    <a href="https://hechamano.es/" rel="nofollow noopener noreferrer" target="_blank" class="text-white hover:text-blue-400">Reformas Hecho a Mano</a>, S.L.U.<br>
                     CIF: B56416514
                 </p>
             </div>
