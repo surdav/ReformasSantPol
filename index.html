@@ -56,6 +56,32 @@
             cursor: pointer;
         }
 
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .modal-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
         .gallery-item {
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -173,8 +199,8 @@
             // Variables del test
             const testContainer = document.getElementById('test-container');
             const steps = document.querySelectorAll('.test-step');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtn = document.getElementById('next-btn');
+            const testPrevBtn = document.getElementById('prev-btn');
+            const testNextBtn = document.getElementById('next-btn');
             const progressBar = document.getElementById('progress-bar');
             const progressPercentage = document.getElementById('progress-percentage');
             const resultTitle = document.getElementById('result-title');
@@ -201,8 +227,8 @@
                 });
 
                 // Update navigation buttons
-                prevBtn.style.display = stepIndex > 0 ? 'block' : 'none';
-                nextBtn.style.display = stepIndex < totalSteps ? 'block' : 'none';
+                testPrevBtn.style.display = stepIndex > 0 ? 'block' : 'none';
+                testNextBtn.style.display = stepIndex < totalSteps ? 'block' : 'none';
 
                 // Clear previous selections
                 const options = document.querySelectorAll('.option-card');
@@ -222,24 +248,9 @@
                     const options = this.parentElement.querySelectorAll('.option-card');
                     options.forEach(opt => opt.classList.remove('selected'));
                     this.classList.add('selected');
-                });
-            });
 
-            // Navigation buttons
-            prevBtn.addEventListener('click', function() {
-                if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
-                    updateProgress();
-                }
-            });
-
-            nextBtn.addEventListener('click', function() {
-                const currentStepElement = steps[currentStep];
-                const selectedOption = currentStepElement.querySelector('.option-card.selected');
-
-                if (selectedOption) {
-                    totalScore += parseInt(selectedOption.dataset.value);
+                    // Automatically move to next step
+                    totalScore += parseInt(this.dataset.value);
 
                     if (currentStep < totalSteps) {
                         currentStep++;
@@ -248,8 +259,15 @@
                     } else {
                         showResults();
                     }
-                } else {
-                    alert('Por favor, selecciona una opción antes de continuar');
+                });
+            });
+
+            // Navigation buttons
+            testPrevBtn.addEventListener('click', function() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                    updateProgress();
                 }
             });
 
@@ -301,7 +319,7 @@
                 if (progressPercentage) progressPercentage.textContent = '100%';
 
                 // Ocultar el botón siguiente
-                if (nextBtn) nextBtn.style.display = 'none';
+                if (testNextBtn) testNextBtn.style.display = 'none';
             }
 
             // Initialize test
@@ -311,13 +329,29 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const closeBtn = document.getElementsByClassName('close')[0];
+            const galleryPrevBtn = document.querySelector('.prev');
+            const galleryNextBtn = document.querySelector('.next');
+            const galleryImages = document.querySelectorAll('.gallery-item img');
+            let currentImageIndex = 0;
 
             // Añadir evento de clic a todas las imágenes de la galería
-            document.querySelectorAll('.gallery-item img').forEach(img => {
+            galleryImages.forEach((img, index) => {
                 img.addEventListener('click', function() {
+                    currentImageIndex = index;
                     modal.style.display = 'block';
                     modalImg.src = this.src;
                 });
+            });
+
+            // Navegación de imágenes
+            galleryPrevBtn.addEventListener('click', function() {
+                currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+                modalImg.src = galleryImages[currentImageIndex].src;
+            });
+
+            galleryNextBtn.addEventListener('click', function() {
+                currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+                modalImg.src = galleryImages[currentImageIndex].src;
             });
 
             // Cerrar modal al hacer clic en la X
@@ -331,6 +365,19 @@
                     modal.style.display = 'none';
                 }
             });
+
+            // Navegación con teclado
+            document.addEventListener('keydown', function(event) {
+                if (modal.style.display === 'block') {
+                    if (event.key === 'ArrowLeft') {
+                        galleryPrevBtn.click();
+                    } else if (event.key === 'ArrowRight') {
+                        galleryNextBtn.click();
+                    } else if (event.key === 'Escape') {
+                        closeBtn.click();
+                    }
+                }
+            });
         });
     </script>
 </head>
@@ -338,7 +385,9 @@
 <!-- Modal para la galería -->
 <div id="imageModal" class="modal">
     <span class="close">&times;</span>
+    <span class="modal-nav prev">&lt;</span>
     <img class="modal-content" id="modalImage">
+    <span class="modal-nav next">&gt;</span>
 </div>
 
 <!-- Header -->
