@@ -255,7 +255,7 @@
                     stepScores[currentStep] = value;
                     totalScore = stepScores.reduce((a, b) => a + b, 0);
 
-                    if (currentStep < totalSteps) {
+                    if (currentStep < totalSteps - 1) {
                         currentStep++;
                         showStep(currentStep);
                         updateProgress();
