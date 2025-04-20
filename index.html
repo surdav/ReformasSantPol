@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JE0WTSR4Q9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-JE0WTSR4Q9');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reformas Sant Pol - Reformas Integrales en Sant Pol de Mar y Maresme</title>
+    <meta name="description" content="Empresa especializada en reformas integrales en Sant Pol de Mar y toda la comarca del Maresme. Carpintería, fontanería, electricidad, albañilería y más.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+        }
+
+        .gallery-item {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .whatsapp-btn {
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #25D366;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu animation */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .mobile-menu.open {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        /* Test styles */
+        .test-step {
+            display: none;
+        }
+
+        .test-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .option-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-card.selected {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        .progress-bar {
+            height: 6px;
+            transition: width 0.5s ease;
+        }
+
+        /* Result animation */
+        .result-container {
+            animation: bounceIn 0.7s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+    <script>
+        // Test functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const testContainer = document.getElementById('test-container');
+            const steps = document.querySelectorAll('.test-step');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+            const resultTitle = document.getElementById('result-title');
+            const resultDescription = document.getElementById('result-description');
+            const resultAdvice = document.getElementById('result-advice');
+
+            let currentStep = 0;
+            let totalScore = 0;
+            const totalSteps = steps.length - 1; // Excluding results step
+
+            // Initialize test
+            function initTest() {
+                showStep(0);
+                updateProgress();
+            }
+
+            // Show specific step
+            function showStep(stepIndex) {
+                steps.forEach((step, index) => {
+                    step.classList.remove('active');
+                    if (index === stepIndex) {
+                        step.classList.add('active');
+                    }
+                });
+
+                // Update navigation buttons
+                prevBtn.style.display = stepIndex > 0 ? 'block' : 'none';
+                nextBtn.style.display = stepIndex < totalSteps ? 'block' : 'none';
+
+                // Clear previous selections
+                const options = document.querySelectorAll('.option-card');
+                options.forEach(option => option.classList.remove('selected'));
+            }
+
+            // Update progress bar
+            function updateProgress() {
+                const progress = (currentStep / totalSteps) * 100;
+                progressBar.style.width = `${progress}%`;
+                progressPercentage.textContent = `${Math.round(progress)}%`;
+            }
+
+            // Handle option selection
+            document.querySelectorAll('.option-card').forEach(option => {
+                option.addEventListener('click', function() {
+                    const options = this.parentElement.querySelectorAll('.option-card');
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Navigation buttons
+            prevBtn.addEventListener('click', function() {
+                if (currentStep > 0) {
+                    currentStep--;
+                    showStep(currentStep);
+                    updateProgress();
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                const currentStepElement = steps[currentStep];
+                const selectedOption = currentStepElement.querySelector('.option-card.selected');
+
+                if (selectedOption) {
+                    totalScore += parseInt(selectedOption.dataset.value);
+
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        showStep(currentStep);
+                        updateProgress();
+                    } else {
+                        showResults();
+                    }
+                } else {
+                    alert('Por favor, selecciona una opción antes de continuar');
+                }
+            });
+
+            // Show results
+            function showResults() {
+                let result = '';
+                let description = '';
+                let advice = '';
+
+                if (totalScore >= 15) {
+                    result = 'Tu piso necesita una reforma integral';
+                    description = 'Basado en tus respuestas, tu vivienda requiere una transformación completa para mejorar su funcionalidad, eficiencia energética y confort.';
+                    advice = 'Te recomendamos una reforma integral que aborde todos los aspectos de tu vivienda, desde la estructura hasta los acabados.';
+                } else if (totalScore >= 10) {
+                    result = 'Tu vivienda necesita una reforma parcial';
+                    description = 'Algunas áreas de tu vivienda requieren atención inmediata, mientras que otras pueden esperar.';
+                    advice = 'Sugerimos centrarnos en las áreas más críticas primero, como la cocina y el baño, y luego abordar el resto gradualmente.';
+                } else if (totalScore >= 5) {
+                    result = 'Parece que solo necesitas renovar algunos elementos';
+                    description = 'Tu vivienda está en buen estado general, pero algunos elementos específicos necesitan actualización.';
+                    advice = 'Te recomendamos enfocarte en modernizar los elementos más antiguos o ineficientes, como ventanas o sistemas de calefacción.';
+                } else {
+                    result = '¡Tu vivienda está casi perfecta!';
+                    description = 'Tu vivienda está en excelente estado, pero siempre hay pequeñas mejoras que pueden aumentar su valor y confort.';
+                    advice = 'Considera pequeñas actualizaciones en elementos específicos para optimizar aún más tu espacio.';
+                }
+
+                resultTitle.textContent = result;
+                resultDescription.textContent = description;
+                resultAdvice.textContent = advice;
+
+                showStep(totalSteps + 1);
+                progressBar.style.width = '100%';
+                progressPercentage.textContent = '100%';
+            }
+
+            // Initialize test
+            initTest();
+
+            // Show more services functionality
+            const showMoreBtn = document.getElementById('show-more-services');
+            const moreServices = document.getElementById('more-services');
+
+            showMoreBtn.addEventListener('click', function() {
+                moreServices.classList.toggle('hidden');
+                this.innerHTML = moreServices.classList.contains('hidden')
+                    ? 'Ver todos nuestros servicios <i class="fas fa-chevron-down ml-2"></i>'
+                    : 'Ocultar servicios <i class="fas fa-chevron-up ml-2"></i>';
+            });
+        });
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center">
+            <div class="bg-blue-500 text-white p-2 rounded mr-3">
+                <i class="fas fa-home text-xl"></i>
+            </div>
+            <h1 class="text-xl font-bold text-blue-600">Reformas <span class="text-gray-800">Sant Pol</span></h1>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8">
+            <a href="#inicio" class="nav-link font-medium">Inicio</a>
+            <a href="#servicios" class="nav-link font-medium">Servicios</a>
+            <a href="#test" class="nav-link font-medium">¿Qué reforma necesitas?</a>
+            <a href="#galeria" class="nav-link font-medium">Galería</a>
+            <a href="#opiniones" class="nav-link font-medium">Opiniones</a>
+            <a href="#contacto" class="nav-link font-medium">Contacto</a>
+        </nav>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-white">
+        <div class="px-4 py-2 space-y-3">
+            <a href="#inicio" class="block py-2 font-medium">Inicio</a>
+            <a href="#servicios" class="block py-2 font-medium">Servicios</a>
+            <a href="#test" class="block py-2 font-medium">¿Qué reforma necesitas?</a>
+            <a href="#galeria" class="block py-2 font-medium">Galería</a>
+            <a href="#opiniones" class="block py-2 font-medium">Opiniones</a>
+            <a href="#contacto" class="block py-2 font-medium">Contacto</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section id="inicio" class="hero flex items-center justify-center text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Reformas Integrales en Sant Pol de Mar</h1>
+        <p class="text-xl md:text-2xl mb-8">Transformamos tus espacios con calidad, profesionalidad y atención personalizada</p>
+
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="https://wa.me/34656185289" class="whatsapp-btn bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp text-xl"></i> WhatsApp
+            </a>
+            <a href="tel:+34656185289" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2">
+                <i class="fas fa-phone-alt"></i> Llamar ahora
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                <h2 class="text-3xl font-bold mb-4">Más de 15 años reformando hogares en Sant Pol de Mar y toda la comarca</h2>
+                <p class="text-lg mb-4">En Reformas Sant Pol nos dedicamos a hacer realidad tus proyectos de reforma, desde pequeñas mejoras hasta reformas integrales de viviendas, locales y comunidades.</p>
+                <p class="text-lg mb-6">Nuestro equipo de profesionales garantiza resultados de calidad, cumpliendo plazos y presupuestos, con la máxima atención al detalle y al cliente.</p>
+
+                <div class="flex flex-wrap gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Presupuesto sin compromiso</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex items-center">
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Profesionales cualificados</span>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Reforma de cocina" class="rounded-lg shadow-lg w-full">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Test Section - Strategically placed after About section -->
+<section id="test" class="py-16 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">¿Qué reforma necesita tu piso?</h2>
+            <p class="text-lg text-gray-600">Responde este breve test y descubre qué tipo de reforma se adapta mejor a las necesidades de tu vivienda</p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl shadow-md p-6 md:p-8">
+            <!-- Progress bar -->
+            <div class="mb-6">
+                <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-600">Progreso</span>
+                    <span id="progress-percentage" class="text-sm font-medium text-blue-600">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" class="progress-bar bg-blue-600 rounded-full h-2" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Test steps -->
+            <div id="test-container">
+                <!-- Step 1 -->
+                <div class="test-step active" data-step="1">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cómo describirías el estado de las ventanas de tu vivienda?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-window-maximize text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy antiguas o dañadas</h4>
+                            <p class="text-sm text-gray-600">No cierran bien, tienen humedades o están deterioradas</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-window-restore text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Funcionales pero anticuadas</h4>
+                            <p class="text-sm text-gray-600">Cierran bien pero no son eficientes energéticamente</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-window-close text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">En buen estado</h4>
+                            <p class="text-sm text-gray-600">Modernas y en perfecto funcionamiento</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No estoy seguro</h4>
+                            <p class="text-sm text-gray-600">Necesitaría que un profesional las evaluara</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="test-step" data-step="2">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cómo valoras el estado de puertas y persianas?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-door-open text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy deterioradas</h4>
+                            <p class="text-sm text-gray-600">No cierran bien, tienen humedades o están dañadas</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-door-closed text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Funcionales pero anticuadas</h4>
+                            <p class="text-sm text-gray-600">Cierran bien pero necesitan modernizarse</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-robot text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Modernas y automatizadas</h4>
+                            <p class="text-sm text-gray-600">Persianas motorizadas y puertas en perfecto estado</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No estoy seguro</h4>
+                            <p class="text-sm text-gray-600">Necesitaría una evaluación profesional</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="test-step" data-step="3">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cómo describirías tu cocina?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-utensils text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy antigua o poco funcional</h4>
+                            <p class="text-sm text-gray-600">Más de 15 años, electrodomésticos obsoletos o distribución incómoda</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-blender text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Funcional pero anticuada</h4>
+                            <p class="text-sm text-gray-600">Electrodomésticos modernos pero mobiliario desgastado</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-ice-cream text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Modernizada recientemente</h4>
+                            <p class="text-sm text-gray-600">Menos de 5 años, todo en buen estado</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No tengo cocina</h4>
+                            <p class="text-sm text-gray-600">Necesito una cocina nueva</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="test-step" data-step="4">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cuál es el estado de tu baño/s?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-bath text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy antiguos o con problemas</h4>
+                            <p class="text-sm text-gray-600">Fugas, humedades, azulejos rotos o instalaciones obsoletas</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-shower text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Funcionales pero anticuados</h4>
+                            <p class="text-sm text-gray-600">Todo funciona pero necesitan modernizarse</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-toilet text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Reformados recientemente</h4>
+                            <p class="text-sm text-gray-600">Menos de 5 años, todo en perfecto estado</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No estoy seguro</h4>
+                            <p class="text-sm text-gray-600">Necesitaría una evaluación profesional</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="test-step" data-step="5">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cómo están los suelos de tu vivienda?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-floor-alt text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy desgastados o dañados</h4>
+                            <p class="text-sm text-gray-600">Tablas sueltas, baldosas rotas o desniveles</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-border-style text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">En buen estado pero anticuados</h4>
+                            <p class="text-sm text-gray-600">Sin daños pero con un estilo pasado de moda</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-vector-square text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Modernos y en perfecto estado</h4>
+                            <p class="text-sm text-gray-600">Reformados recientemente o muy bien conservados</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No estoy seguro</h4>
+                            <p class="text-sm text-gray-600">Necesitaría una evaluación profesional</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6 -->
+                <div class="test-step" data-step="6">
+                    <h3 class="text-xl font-bold mb-6 text-center">¿Cómo es el sistema de calefacción de tu vivienda?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="3">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-fire-alt text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Muy antiguo o ineficiente</h4>
+                            <p class="text-sm text-gray-600">Caldera vieja, radiadores obsoletos o gasto energético alto</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="2">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-temperature-low text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Funcional pero mejorable</h4>
+                            <p class="text-sm text-gray-600">Funciona pero podría ser más eficiente</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="1">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-thermometer-half text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Moderno y eficiente</h4>
+                            <p class="text-sm text-gray-600">Sistema actualizado en los últimos 5 años</p>
+                        </div>
+                        <div class="option-card border-2 border-gray-200 rounded-lg p-4 text-center" data-value="0">
+                            <div class="bg-blue-100 text-blue-600 p-3 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-question text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">No tengo calefacción</h4>
+                            <p class="text-sm text-gray-600">Necesito instalar un sistema</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="test-step" data-step="7">
+                    <div id="result-container" class="result-container text-center py-8">
+                        <div class="bg-blue-100 text-blue-600 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-home text-2xl"></i>
+                        </div>
+                        <h3 id="result-title" class="text-2xl font-bold mb-4"></h3>
+                        <p id="result-description" class="text-gray-600 mb-6 max-w-md mx-auto"></p>
+                        <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+                            <h4 class="font-bold text-blue-800 mb-2">Nuestro consejo:</h4>
+                            <p id="result-advice" class="text-blue-700"></p>
+                        </div>
+                        <p class="text-gray-600 mb-6">¿Quieres recibir un presupuesto gratuito y sin compromiso?</p>
+                        <div class="flex flex-col md:flex-row justify-center gap-4">
+                            <a href="https://wa.me/34656185289" class="whatsapp-btn bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2">
+                                <i class="fab fa-whatsapp text-xl"></i> Contactar por WhatsApp
+                            </a>
+                            <a href="tel:+34656185289" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2">
+                                <i class="fas fa-phone-alt"></i> Llamar ahora
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="flex justify-between mt-8">
+                <button id="prev-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-6 rounded-full hidden">
+                    <i class="fas fa-arrow-left mr-2"></i> Anterior
+                </button>
+                <button id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full ml-auto">
+                    Siguiente <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="servicios" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-4">Nuestros Servicios de Reformas</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Ofrecemos soluciones completas para todas las necesidades de tu hogar o negocio en Sant Pol de Mar y toda la comarca del Maresme.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Reformas integrales" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Reformas integrales en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Transformamos completamente tu vivienda o local, coordinando todos los oficios para un resultado perfecto.</p>
+                    <p class="text-sm text-gray-500">También trabajamos en: Arenys de Mar, Calella, Pineda de Mar, Malgrat de Mar, Blanes y toda la comarca.</p>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Carpintería de aluminio" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Carpintería de aluminio en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Fabricación e instalación de ventanas, puertas y cerramientos de aluminio de alta calidad y máxima eficiencia energética.</p>
+                    <p class="text-sm text-gray-500">Servicio disponible en toda la zona del Maresme y Costa Brava.</p>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Carpintería de madera" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Carpintería de madera en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Muebles a medida, puertas, armarios empotrados y trabajos de ebanistería con maderas nobles y tratamientos de calidad.</p>
+                    <p class="text-sm text-gray-500">Atendemos también en Lloret de Mar, Tossa de Mar y poblaciones cercanas.</p>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1590959651373-a3db0f38a961?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Instalaciones eléctricas" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Instalaciones eléctricas en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Instalaciones nuevas, reformas, cuadros eléctricos, iluminación y domótica. Certificados oficiales.</p>
+                    <p class="text-sm text-gray-500">Servicio en Sant Pol de Mar y toda la provincia de Barcelona.</p>
+                </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Fontanería y desatascos" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Fontanería y desatascos en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Reparación de fugas, instalación de baños and cocinas, desatascos urgentes con garantía.</p>
+                    <p class="text-sm text-gray-500">Urgencias 24h en Sant Pol de Mar y poblaciones cercanas.</p>
+                </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Cerrajería profesional" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Cerrajería profesional en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Apertura de puertas, cambio de cerraduras, instalación de sistemas de seguridad y copias de llaves.</p>
+                    <p class="text-sm text-gray-500">Servicio rápido en Sant Pol de Mar y alrededores.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- More services button -->
+        <div class="text-center mt-12">
+            <button id="show-more-services" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full">
+                Ver todos nuestros servicios <i class="fas fa-chevron-down ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Hidden services -->
+        <div id="more-services" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Service 7 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Construcción y albañilería" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Construcción y albañilería en Sant Pol de Mar</h3>
+                    <p class="text-gray-600 mb-4">Obras nuevas, tabiquería, solados, alicatados, revestimientos y todo tipo de trabajos de albañilería.</p>
+                    <p class="text-sm text-gray-500">Servicio en Sant Pol de Mar y comarca del Maresme.</p>
+                </div>
+            </div>
+
+            <!-- Service 8 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Persianas motorizadas" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Instalación, reparación y motorización de persianas</h3>
+                    <p class="text-gray-600 mb-4">Persianas nuevas, reparación de cajones, cambio de lamas y motorización para mayor comodidad.</p>
+                    <p class="text-sm text-gray-500">Atendemos en Sant Pol de Mar y poblaciones cercanas.</p>
+                </div>
+            </div>
+
+            <!-- Service 9 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Aire acondicionado" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Aire acondicionado: instalación y mantenimiento</h3>
+                    <p class="text-gray-600 mb-4">Instalación de splits, sistemas multisplit, mantenimiento preventivo y reparación de averías.</p>
+                    <p class="text-sm text-gray-500">Servicio técnico en Sant Pol de Mar y toda la zona.</p>
+                </div>
+            </div>
+
+            <!-- Service 10 -->
+            <div class="service-card bg-gray-50 rounded-lg overflow-hidden shadow-md">
+                <img src="https://images.unsplash.com/photo-1606744837616-56c9a5c6a6eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Aire acondicionado" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3">Aire acondicionado: instalación y mantenimiento</h3>
+                    <p class="text-gray-600 mb-4">Instalación de splits, sistemas multisplit, mantenimiento preventivo y reparación de averías.</p>
+                    <p class="text-sm text-gray-500">Servicio técnico en Sant Pol de Mar y toda la zona.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Ubicación -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Ubicación</h3>
+                <p class="text-gray-300">
+                    Actualmente ofrecemos servicios de reformas integrales a domicilio con nuestra oficina móvil.<br>
+                    Pronto inauguraremos nuestra nueva oficina en Sant Pol de Mar.
+                </p>
+            </div>
+
+            <!-- Síguenos aquí -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Síguenos aquí</h3>
+                <div class="flex space-x-4">
+                    <a href="https://www.facebook.com/hechamano.es" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-facebook text-2xl"></i>
+                    </a>
+                    <a href="https://x.com/hechamanoes" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@laredgrupohechoamano-refor6156" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-youtube text-2xl"></i>
+                    </a>
+                    <a href="https://www.instagram.com/hechamano.es/" target="_blank" class="text-gray-300 hover:text-white transition-colors">
+                        <i class="fab fa-instagram text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Notas Legales -->
+            <div>
+                <h3 class="text-xl font-bold mb-4">Notas Legales</h3>
+                <p class="text-gray-300 text-sm">
+                    Esta web es una plantilla HTML estática y no recopila ninguna información personal ni utiliza cookies. Todos los datos mostrados son de carácter informativo y no se conectan a ninguna base de datos o CMS.<br><br>
+                    Reformas Hecho a Mano, S.L.U.<br>
+                    CIF: B56416514
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
