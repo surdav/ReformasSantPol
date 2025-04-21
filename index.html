@@ -10,11 +10,67 @@
 
         gtag('config', 'G-JE0WTSR4Q9');
     </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Reformas Sant Pol - Expertos en reformas integrales, cocinas, baños y más. Transformamos tu hogar con calidad y profesionalidad.">
-    <meta name="keywords" content="reformas, sant pol, reformas integrales, cocinas, baños, construcción">
+
+    <!-- METADATOS BÁSICOS SEO -->
     <title>Reformas Sant Pol - Expertos en Reformas Integrales</title>
+    <meta name="description" content="Reformas Sant Pol - Expertos en reformas integrales, cocinas, baños y más. Transformamos tu hogar con calidad y profesionalidad.">
+    <meta name="keywords" content="reformas integrales Sant Pol de Mar, reformas de cocinas, reformas de baños, carpintería de aluminio, renovación de pisos, reformas El Maresme, reformas Barcelona">
+    <meta name="author" content="Reformas Hecho a Mano, S.L.U.">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="theme-color" content="#2E2E2E">
+
+    <!-- OPEN GRAPH (Facebook, LinkedIn) -->
+    <meta property="og:title" content="Reformas Sant Pol - Expertos en Reformas Integrales" />
+    <meta property="og:description" content="Transformamos tu hogar con calidad y profesionalidad. Reformas integrales, cocinas, baños y más." />
+    <meta property="og:image" content="https://reformas-sant-pol-de-mar.es/reformas-integrales-sant-pol-de-mar.jpg" />
+    <meta property="og:url" content="https://reformas-sant-pol-de-mar.es/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Reformas Sant Pol" />
+
+    <!-- TWITTER CARDS -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reformas Sant Pol - Expertos en Reformas Integrales" />
+    <meta name="twitter:description" content="Transformamos tu hogar con calidad y profesionalidad. Reformas integrales, cocinas, baños y más." />
+    <meta name="twitter:image" content="https://reformas-sant-pol-de-mar.es/reformas-integrales-sant-pol-de-mar.jpg" />
+    <meta name="twitter:site" content="@hechamanoes" />
+
+    <!-- CANONICAL URL -->
+    <link rel="canonical" href="https://reformas-sant-pol-de-mar.es/" />
+
+    <!-- SCHEMA.ORG JSON-LD (EMPRESA LOCAL) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Reformas Sant Pol",
+            "image": "https://reformas-sant-pol-de-mar.es/reformas-integrales-sant-pol-de-mar.jpg",
+            "url": "https://reformas-sant-pol-de-mar.es/",
+            "telephone": "+34 656 185 289",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Sant Pol de Mar",
+                "addressRegion": "Barcelona",
+                "postalCode": "08395",
+                "addressCountry": "ES"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 41.6027,
+                "longitude": 2.6167
+            },
+            "sameAs": [
+                "https://www.facebook.com/hechamano.es",
+                "https://x.com/hechamanoes",
+                "https://www.youtube.com/@laredgrupohechoamano-refor6156",
+                "https://www.instagram.com/hechamano.es/"
+            ],
+            "legalName": "Reformas Hecho a Mano, S.L.U.",
+            "taxID": "B56416514"
+        }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3e0.png">
@@ -409,10 +465,12 @@
 <header class="bg-white shadow-md sticky top-0 z-50">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <div class="flex items-center">
-            <div class="bg-blue-500 text-white p-2 rounded mr-3">
-                <i class="fas fa-home text-xl"></i>
-            </div>
-            <h1 class="text-xl font-bold text-blue-600">Reformas <span class="text-gray-800">Sant Pol</span></h1>
+            <a href="https://reformas-sant-pol-de-mar.es/" class="flex items-center">
+                <div class="bg-blue-500 text-white p-2 rounded mr-3">
+                    <i class="fas fa-home text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold text-blue-600">Reformas <span class="text-gray-800">Sant Pol</span></h1>
+            </a>
         </div>
 
         <!-- Desktop Navigation -->
@@ -1087,5 +1145,23 @@
         </div>
     </div>
 </footer>
+
+<script>
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+    });
+
+    // Close mobile menu when clicking on a link
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('open');
+        });
+    });
+</script>
 </body>
 </html>
